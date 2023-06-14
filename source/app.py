@@ -1,7 +1,7 @@
 from flask import Flask
 
 app = Flask(__name__)
-variable = "Hello, World"
+variable = "Hello, world!"
 variable1 = variable
 variable2 = variable1
     
