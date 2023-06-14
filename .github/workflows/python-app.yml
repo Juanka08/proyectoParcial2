@@ -38,6 +38,18 @@ jobs:
       run: |
         export PYTHONPATH=source
         pytest
+    - name: Send Slack notification
+      uses: ravsamhq/notify-slack-action@v2
+      if: always()
+      with:
+          status: ${{ job.status }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          notification_title: "{workflow} sufrió fallos al intentar pasar los test"
+          message_format: ":skull: {workflow} {status_message} in <{repo_url}|{repo}>"
+          footer: "Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>"
+          notify_when: "failure"
+      env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   sonarcloud:
     needs: [build]
     name: SonarCloud
@@ -68,9 +80,9 @@ jobs:
         with:
             status: ${{ job.status }}
             token: ${{ secrets.GITHUB_TOKEN }}
-            notification_title: "{workflow} has {status_message}"
-            message_format: "{emoji} {workflow} {status_message} in <{repo_url}|{repo}>"
+            notification_title: "{workflow} pasó exitosamente los test"
+            message_format: ":smile: {workflow} {status_message} in <{repo_url}|{repo}>"
             footer: "Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>"
-            notify_when: "failure, success"
+            notify_when: "success"
         env:
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
