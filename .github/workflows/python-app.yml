@@ -45,7 +45,7 @@ jobs:
           status: ${{ job.status }}
           token: ${{ secrets.GITHUB_TOKEN }}
           notification_title: "{workflow} sufrió fallos al intentar pasar los test"
-          message_format: ":face with head-bandage: {workflow} {status_message} in <{repo_url}|{repo}>"
+          message_format: ":skull: {workflow} {status_message} in <{repo_url}|{repo}>"
           footer: "Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>"
           notify_when: "failure"
       env:
@@ -81,7 +81,7 @@ jobs:
             status: ${{ job.status }}
             token: ${{ secrets.GITHUB_TOKEN }}
             notification_title: "{workflow} pasó exitosamente los test"
-            message_format: "{emoji} {workflow} {status_message} in <{repo_url}|{repo}>"
+            message_format: ":smile: {workflow} {status_message} in <{repo_url}|{repo}>"
             footer: "Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>"
             notify_when: "success"
         env:
